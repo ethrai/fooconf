@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,22 +13,25 @@ import java.util.Set;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Poll {
+public class PollOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "poll_id")
+    @Column(name="poll_option_id",nullable = false)
     private Long id;
 
     @Column(nullable = false)
-    private String title;
-
-    @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    private Set<PollOption> options;
+    private String optionText;
 
     @ManyToOne
-    @JoinColumn(name = "conference_id", nullable = false)
-    private Conference conference;
+    @JoinColumn(name = "poll_id", nullable = false)
+    private Poll poll;
+
+    @OneToMany(mappedBy = "pollOption")
+    @ToString.Exclude
+    private Set<PollVote> pollVotes;
+
+    @Column(nullable = false)
+    private int voteCount = 0;
 
     @Override
     public final boolean equals(Object o) {
@@ -39,8 +40,8 @@ public class Poll {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Poll poll = (Poll) o;
-        return getId() != null && Objects.equals(getId(), poll.getId());
+        PollOption that = (PollOption) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
