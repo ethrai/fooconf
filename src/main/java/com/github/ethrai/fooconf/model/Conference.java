@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,6 +25,9 @@ public class Conference {
 
     @Column(nullable = false)
     private String description;
+
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     @OneToMany(mappedBy = "conference")
     @ToString.Exclude
