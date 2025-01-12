@@ -8,6 +8,5 @@ spring:
   jpa:
     hibernate:
       ddl-auto: ${HIBERNATE_DDL_AUTO:create-drop}
-    properties:
-      hibernate:
-        dialect: ${HIBERNATE_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
