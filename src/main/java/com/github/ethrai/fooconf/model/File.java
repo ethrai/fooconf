@@ -18,6 +18,9 @@ public class File {
     @Column(name = "file_id")
     private Long id;
 
+    @Column(nullable = false)
+    private String url;
+
     @ManyToOne
     @JoinColumn(name = "message_id", nullable = false)
     private Message message;
