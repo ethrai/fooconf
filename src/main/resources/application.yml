@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: ${APP_NAME:fooconf}
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/fooconf-db}
+    username: ${DB_USERNAME:admin}
+    password: ${DB_PASSWORD:password}
+  jpa:
+    hibernate:
+      ddl-auto: ${HIBERNATE_DDL_AUTO:create-drop}
+    properties:
+      hibernate:
+        dialect: ${HIBERNATE_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
